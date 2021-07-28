@@ -4,7 +4,7 @@
 \alias{score_models}
 \title{Score models}
 \usage{
-score_models(forecasts, report_date, restrict_weeks = 0L)
+score_models(forecasts, report_date, restrict_weeks = 0L, quantiles)
 }
 \arguments{
 \item{forecasts}{\code{data.frame} containing all the forecasts to be summarised
@@ -15,6 +15,9 @@ as an ensemble.}
 \item{restrict_weeks}{Integer number of continuous weeks continuous weeks
 leading up to the \code{report_date} the forecasts need to include to be
 considered in the scoring.}
+
+\item{quantiles}{Numeric vector of quantiles the forecasts need to include
+to be considered in the scoring.}
 }
 \description{
 Score models

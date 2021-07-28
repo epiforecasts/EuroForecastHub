@@ -5,6 +5,8 @@
 #' @param restrict_weeks Integer number of continuous weeks continuous weeks
 #' leading up to the `report_date` the forecasts need to include to be
 #' considered in the scoring.
+#' @param quantiles Numeric vector of quantiles the forecasts need to include
+#' to be considered in the scoring.
 #'
 #' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join right_join select across if_else n_distinct rename full_join
 #' @importFrom tidyr pivot_wider complete replace_na
@@ -12,7 +14,8 @@
 #' @importFrom scoringutils eval_forecasts
 #'
 #' @export
-score_models <- function(forecasts, report_date, restrict_weeks = 0L) {
+score_models <- function(forecasts, report_date, restrict_weeks = 0L,
+                         quantiles) {
 
   last_forecast_date <- report_date - 7
 
@@ -112,11 +115,8 @@ score_models <- function(forecasts, report_date, restrict_weeks = 0L) {
   ## for calculating WIS and bias, make sure all quantiles are there
   score_df <- score_df %>%
     group_by(location, target_variable, target_end_date, model, horizon) %>%
-    mutate(all_quantiles_present =
-             (length(setdiff(quantiles, quantile)) == 0)) %>%
-    ungroup() %>%
-    filter(all_quantiles_present == TRUE) %>%
-    select(-all_quantiles_present)
+    filter(setequal(quantiles, quantile)) %>%
+    ungroup()
 
   table <- score_df %>%
     filter(type != "point") %>%
