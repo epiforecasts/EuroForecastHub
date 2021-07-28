@@ -33,8 +33,13 @@ score_models <- function(forecasts, report_date) {
 
   ## for overall, if more than 1 location exists, filter to have at least half
   ## of them
-  score_df <- num_loc %>%
-    filter(location != "Overall" | n_loc >= n_distinct(location_name) / 2)
+  score_df <- score_df %>%
+    group_by(model, target_variable, location, horizon) %>%
+    mutate(n = n_distinct(location_name)) %>%
+    ungroup() %>%
+    mutate(nall = n_distinct(location_name)) %>%
+    filter(location != "Overall" | n >= nall / 2) %>%
+    select(-n, -nall)
 
   ## continuous weeks of submission
   cont_weeks <- score_df %>%
