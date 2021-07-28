@@ -12,8 +12,9 @@ as an ensemble.}
 
 \item{report_date}{Date at which the scoring takes place}
 
-\item{restrict_weeks}{Integer number of continuous weeks the forecasts need
-to include to be considered in the scoring.}
+\item{restrict_weeks}{Integer number of continuous weeks continuous weeks
+leading up to the \code{report_date} the forecasts need to include to be
+considered in the scoring.}
 }
 \description{
 Score models

@@ -2,8 +2,9 @@
 #'
 #' @inheritParams create_ensemble_average
 #' @param report_date Date at which the scoring takes place
-#' @param restrict_weeks Integer number of continuous weeks the forecasts need
-#' to include to be considered in the scoring.
+#' @param restrict_weeks Integer number of continuous weeks continuous weeks
+#' leading up to the `report_date` the forecasts need to include to be
+#' considered in the scoring.
 #'
 #' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join right_join select across if_else n_distinct rename full_join
 #' @importFrom tidyr pivot_wider complete replace_na
