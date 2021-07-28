@@ -3,7 +3,7 @@
 #' @inheritParams create_ensemble_average
 #' @param report_date Date at which the scoring takes place
 #'
-#' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join right_join select across if_else n_distinct
+#' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join right_join select across if_else n_distinct rename full_join
 #' @importFrom tidyr pivot_wider complete replace_na
 #' @importFrom lubridate weeks
 #' @importFrom scoringutils eval_forecasts
