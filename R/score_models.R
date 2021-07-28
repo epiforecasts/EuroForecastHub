@@ -115,7 +115,8 @@ score_models <- function(forecasts, report_date, restrict_weeks = 0L,
   ## for calculating WIS and bias, make sure all quantiles are there
   score_df <- score_df %>%
     group_by(location, target_variable, target_end_date, model, horizon) %>%
-    filter(setequal(quantiles, quantile)) %>%
+    # TODO: figure out why length(setdiff()) == 0 but not setequal()
+    filter(length(setdiff(quantiles, quantile)) == 0) %>%
     ungroup()
 
   table <- score_df %>%
