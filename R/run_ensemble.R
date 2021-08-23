@@ -53,14 +53,14 @@ run_ensemble <- function(method = "mean",
     load_forecasts(source = "local_hub_repo",
                    hub_repo_path = here(),
                    hub = "ECDC",
-                   forecast_dates = forecast_dates,
+                   dates = forecast_dates,
                    verbose = FALSE))
 
   if (verbose) {message(paste0(
     "Forecasts loaded from ",
     as.character(min(forecast_dates)), " to ",
     as.character(max(forecast_dates))))
-    }
+  }
 
   # Exclusions --------------------------------------------------------------
   # If manual exclusion is csv, convert to vector
@@ -128,7 +128,7 @@ run_ensemble <- function(method = "mean",
   #     ensemble <- method_function_call()
   #   }
 
-# Format and return -----------------------------------------------------------
+  # Format and return -----------------------------------------------------------
   ensemble <- format_ensemble(ensemble = ensemble,
                               forecast_date = max(forecast_dates))
 
