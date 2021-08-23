@@ -64,7 +64,8 @@ score_models <- function(forecasts, report_date, restrict_weeks = 0L,
       "location"
     )) %>%
     replace_na(list(continuous_weeks = 0)) %>%
-    filter(continuous_weeks >= restrict_weeks)
+    filter(continuous_weeks >= restrict_weeks) %>%
+    select(-continuous_weeks)
 
   ## number of forecasts
   num_fc <- score_df %>%
