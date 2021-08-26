@@ -111,7 +111,8 @@ score_models <- function(forecasts, report_date, restrict_weeks = 0L,
       baseline = "EuroCOVIDhub-baseline",
       rel_skill_metric = "ae_point"
     ) %>%
-    select(model, target_variable, horizon, location, rel_ae = scaled_rel_skill)
+    select(model, target_variable, horizon, location,
+           ae = ae_point, rel_ae = scaled_rel_skill)
 
   ## for calculating WIS and bias, make sure all quantiles are there
   score_df <- score_df %>%
@@ -157,7 +158,7 @@ score_models <- function(forecasts, report_date, restrict_weeks = 0L,
     mutate(location_name =
              if_else(location == "Overall", "Overall", location_name)) %>%
     mutate(across(c("interval_score", "sharpness",
-                    "underprediction", "overprediction"), round)) %>%
+                    "underprediction", "overprediction", "ae"), round)) %>%
     mutate(across(c("bias", "rel_wis", "rel_ae", "cov_50", "cov_95"), round, 2))
 
   return(table)
