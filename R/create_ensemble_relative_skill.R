@@ -2,9 +2,10 @@
 #'
 #' @inheritParams create_ensemble_average
 #' @param evaluation_date which date should be used to measure model
-#' performance?
+#' performance? A corresponding file containing evaluations is expected in \code{evaluation/evaluation-{evaluation_date}.csv}
 #' @param continuous_weeks include only forecasts with a history of evaluation
 #' @param by_horizon weight using relative skill by horizon, rather than average
+#' @param skill the relative skill score to be used for creating the ensemble; a column called \code{rel_{skill}} is expected to exist in the evaluation csv file
 #' @inheritParams weighted_average
 #' @inheritParams use_ensemble_criteria
 #' @param verbose Logical determining whether diagnostic messages should
