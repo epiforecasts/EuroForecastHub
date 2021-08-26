@@ -9,6 +9,7 @@ create_ensemble_relative_skill(
   evaluation_date,
   continuous_weeks = 4,
   average = "mean",
+  skill = "wis",
   by_horizon = FALSE,
   return_criteria = FALSE,
   verbose = FALSE
@@ -19,11 +20,13 @@ create_ensemble_relative_skill(
 as an ensemble.}
 
 \item{evaluation_date}{which date should be used to measure model
-performance?}
+performance? A corresponding file containing evaluations is expected in \code{evaluation/evaluation-{evaluation_date}.csv}}
 
 \item{continuous_weeks}{include only forecasts with a history of evaluation}
 
 \item{average}{Method to average. One of \code{"mean"} or \code{"median"}}
+
+\item{skill}{the relative skill score to be used for creating the ensemble; a column called \code{rel_{skill}} is expected to exist in the evaluation csv file}
 
 \item{by_horizon}{weight using relative skill by horizon, rather than average}
 
