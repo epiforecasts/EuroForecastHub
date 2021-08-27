@@ -47,7 +47,7 @@ create_ensemble_relative_skill <- function(forecasts,
     stop(paste("Evaluation does not include relative", skill))
   } else {
     evaluation <- evaluation %>%
-      mutate(relative_skill = as.numeric(!!rlang::sym(col_name)))
+      mutate(relative_skill = as.numeric(.data[[col_name]]))
   }
 
   if (verbose) {message(paste0("Relative skill evaluation as of ",
