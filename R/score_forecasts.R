@@ -13,7 +13,7 @@ score_forecasts <- function(forecasts, quantiles = NULL) {
   ## Extract unique locations contained in forecasts
   locations <- forecasts %>%
     select(location, location_name) %>%
-    unique()
+    distinct()
 
   ## For AE we use the median if given, otherwise the point forecast.
   ## Here we first convert the point forecast to the median for any
