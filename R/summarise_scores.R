@@ -1,6 +1,6 @@
 #' Summarise scores
 #'
-#' @param scores table of scores, e.g. as created with \code{\link{score_forecasts}}
+#' @param scores table of scores, e.g. as created with [score_forecasts()]
 #' @param report_date Date at which the scoring takes place
 #' @param restrict_weeks Integer number of continuous weeks continuous weeks
 #' leading up to the `report_date` the forecasts need to include to be
