@@ -7,7 +7,7 @@
 summarise_scores(scores, report_date, restrict_weeks = 0L)
 }
 \arguments{
-\item{scores}{table of scores, e.g. as created with \code{\link{score_models}}}
+\item{scores}{table of scores, e.g. as created with \code{\link{score_forecasts}}}
 
 \item{report_date}{Date at which the scoring takes place}
 
