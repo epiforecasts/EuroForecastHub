@@ -42,7 +42,7 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
   ## continuous weeks of submission
   if (restrict_weeks > 0) {
     cont_weeks <- score_df %>%
-      group_by(model, location, target_variable, target_end_date, horizon) %>%
+      group_by(model, location, target_variable, target_end_date, horizon, forecast_date) %>%
       summarise(present = 1, .groups = "drop") %>%
       complete(model, location, target_variable, target_end_date, horizon) %>%
       filter(forecast_date <= report_date - weeks(horizon)) %>%
