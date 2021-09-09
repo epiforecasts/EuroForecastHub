@@ -16,6 +16,10 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
 
   last_forecast_date <- report_date - 7
 
+  locations <- scores %>%
+    select(location, location_name) %>%
+    distinct()
+
   ## extract data to be scored and set number of locations to one as default (see next command)
   score_data <- scores %>%
     filter(forecast_date <= last_forecast_date,
@@ -66,10 +70,6 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
   num_fc <- score_df %>%
     count(model, target_variable, horizon, location)
 
-  locations <- score_df %>%
-    select(location, location_name) %>%
-    distinct()
-
   rel_ae <- score_df %>%
     select(model, target_variable, horizon, location, aem) %>%
     pairwise_comparison(
@@ -105,7 +105,7 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
     full_join(rel_wis, by = c("model", "target_variable", "horizon", "location")) %>%
     full_join(coverage, by = c("model", "target_variable", "horizon", "location")) %>%
     full_join(bias, by = c("model", "target_variable", "horizon", "location")) %>%
-    inner_join(locations, by = "location") %>%
+    left_join(locations, by = "location") %>%
     mutate(across(c("bias", "rel_wis", "rel_ae", "cov_50", "cov_95"), round, 2))
 
   return(table)
