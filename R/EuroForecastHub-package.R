@@ -4,14 +4,16 @@
 utils::globalVariables(
   c(
     "ae",
-    "ae_point",
+    "aem",
     "all_quantiles_all_horizons",
     "all_quantiles_present",
+    "bias",
     "continuous_weeks",
     "designation",
     "forecast_date",
     "horizon",
     "included_in_ensemble",
+    "interval_score",
     "inv_skill",
     "location",
     "location_name",
@@ -19,12 +21,16 @@ utils::globalVariables(
     "nall",
     "not_excluded_manually",
     "n_loc",
+    "n_quantiles",
+    "overprediction",
+    "point_prediction",
     "prediction",
     "present",
     "quantile",
     "relative_skill",
     "restrict_weeks",
     "scaled_rel_skill",
+    "sharpness",
     "sum_inv_skill",
     "target",
     "target_end_date",
@@ -32,7 +38,9 @@ utils::globalVariables(
     "temporal_resolution",
     "true_value",
     "type",
+    "underprediction",
     "value",
-    "weight"
+    "weight",
+    "wis"
   )
 )
