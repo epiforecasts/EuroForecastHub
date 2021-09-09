@@ -6,9 +6,10 @@
 #' leading up to the `report_date` the forecasts need to include to be
 #' considered in the scoring.
 #'
-#' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join select across n_distinct full_join
+#' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join select across n_distinct full_join distinct starts_with
 #' @importFrom tidyr complete replace_na
 #' @importFrom lubridate weeks
+#' @importFrom scoringutils pairwise_comparison
 #'
 #' @export
 summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {

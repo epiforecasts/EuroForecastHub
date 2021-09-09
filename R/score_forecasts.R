@@ -3,7 +3,7 @@
 #' @inheritParams create_ensemble_average
 #' @param quantiles Numeric vector of quantiles to be considered in the scoring.
 #'
-#' @importFrom dplyr group_by mutate ungroup filter select summarise left_join select across if_else n_distinct rename
+#' @importFrom dplyr group_by mutate ungroup filter select summarise left_join select across if_else n_distinct rename relocate
 #' @importFrom tidyr pivot_wider
 #' @importFrom scoringutils eval_forecasts
 #'
