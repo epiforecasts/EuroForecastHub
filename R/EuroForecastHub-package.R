@@ -4,6 +4,7 @@
 utils::globalVariables(
   c(
     "ae",
+    "ae_point",
     "all_quantiles_all_horizons",
     "all_quantiles_present",
     "continuous_weeks",

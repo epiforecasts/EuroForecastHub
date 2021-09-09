@@ -18,7 +18,7 @@
 #'
 #' @importFrom vroom vroom
 #' @importFrom here here
-#' @importFrom dplyr select filter group_by %>% summarise mutate across all_of select_at n
+#' @importFrom dplyr select filter group_by %>% summarise mutate across all_of select_at n .data
 #'
 #' @export
 create_ensemble_relative_skill <- function(forecasts,
