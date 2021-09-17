@@ -10,11 +10,13 @@
 #'
 #' @export
 get_model_designations <- function(hub_repo_path) {
-  models <-
-    list.files(file.path(hub_repo_path, "data-processed"), include.dirs = TRUE)
-  metadata_files <-
-    file.path(hub_repo_path, "data-processed", models,
-              paste0("metadata-", models, ".txt"))
+
+  metadata_files <- list.files(
+    file.path(hub_repo_path, "data-processed"),
+    recursive = TRUE,
+    pattern = "metadata-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)\\.txt",
+    full.names = TRUE
+  )
   metadata <- lapply(metadata_files, yaml::read_yaml)
   model_designations <-
     vapply(metadata, `[[`, "team_model_designation", FUN.VALUE = "")
