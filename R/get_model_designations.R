@@ -17,8 +17,10 @@ get_model_designations <- function(hub_repo_path) {
     pattern = "metadata-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)\\.txt",
     full.names = TRUE
   )
-  metadata <- lapply(metadata_files, yaml::read_yaml)
-  model_designations <-
-    vapply(metadata, `[[`, "team_model_designation", FUN.VALUE = "")
+  metadata <- purrr::map(metadata_files, yaml::read_yaml)
+
+  models <- purrr::map_chr(metadata, "model_abbr")
+  model_designations <- purrr::map_chr(metadata, "team_model_designation")
+
   return(data.frame(model = models, designation = model_designations))
 }
