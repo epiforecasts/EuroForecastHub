@@ -55,10 +55,9 @@ create_ensemble_relative_skill <- function(forecasts,
   # include only models with forecasts,
   #   with evaluation for >= x weeks
   skill <- evaluation %>%
-    select(model, continuous_weeks, target_variable,
+    select(model, target_variable,
            horizon, location, relative_skill) %>%
     filter(model %in% forecasts$model &
-             continuous_weeks >= !!continuous_weeks &
              !is.na(relative_skill))
 
   # Average skill over all horizons (default)
