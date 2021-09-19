@@ -103,7 +103,7 @@ run_ensemble <- function(method = "mean",
   # Relative skill
   if (grepl("^relative_skill", method)) {
     by_horizon <- grepl("_by_horizon", method)
-    use_median <- grepl("_median", method )
+    use_median <- grepl("_median", method)
     ensemble <- create_ensemble_relative_skill(forecasts = forecasts,
                                                by_horizon = by_horizon,
                                                average = if_else(use_median,
