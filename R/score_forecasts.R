@@ -60,6 +60,7 @@ score_forecasts <- function(forecasts, quantiles = NULL) {
       summarise_by = c("model", "target_variable", "forecast_date",
                        "target_end_date", "horizon", "location"),
       metrics = c("interval_score", "aem", "bias"),
+      summarised = FALSE
     ) %>%
     select(model, target_variable, forecast_date, target_end_date,
            horizon, location, wis = interval_score,
