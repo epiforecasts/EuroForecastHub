@@ -58,9 +58,9 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
 
     score_df <- score_df %>%
       left_join(cont_weeks, by = c(
-                              "model", "target_variable", "horizon",
-                              "location"
-                            )) %>%
+        "model", "target_variable", "horizon",
+        "location"
+      )) %>%
       replace_na(list(continuous_weeks = 0)) %>%
       filter(continuous_weeks >= restrict_weeks) %>%
       select(-continuous_weeks)
@@ -71,11 +71,14 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
     count(model, target_variable, horizon, location)
 
   rel_ae <- score_df %>%
-    select(model, target_variable, horizon, location, aem) %>%
-    pairwise_comparison(
-      metric = "aem",
+    select(model, target_variable, horizon, location, forecast_date, aem) %>%
+    data.table::as.data.table() %>%
+    scoringutils:::add_rel_skill_to_eval_forecasts(
+      rel_skill_metric = "aem",
       baseline = "EuroCOVIDhub-baseline",
-      summarise_by = c("model", "target_variable", "horizon", "location")
+      by =  c("model", "target_variable", "horizon", "location", "forecast_date"),
+      summarise_by = c("model", "target_variable", "horizon", "location"),
+      verbose = FALSE
     ) %>%
     select(model, target_variable, horizon, location,
            rel_ae = scaled_rel_skill) %>%
@@ -83,11 +86,14 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
 
   rel_wis <- score_df %>%
     filter(n_quantiles == 23) %>%
-    select(model, target_variable, horizon, location, interval_score = wis) %>%
-    pairwise_comparison(
-      metric = "interval_score",
+    select(model, target_variable, horizon, location, forecast_date, interval_score = wis) %>%
+    data.table::as.data.table() %>%
+    scoringutils:::add_rel_skill_to_eval_forecasts(
+      rel_skill_metric = "interval_score",
       baseline = "EuroCOVIDhub-baseline",
-      summarise_by = c("model", "target_variable", "horizon", "location")
+      by =  c("model", "target_variable", "horizon", "location", "forecast_date"),
+      summarise_by = c("model", "target_variable", "horizon", "location"),
+      verbose = FALSE
     ) %>%
     select(model, target_variable, horizon, location, rel_wis = scaled_rel_skill) %>%
     distinct()
