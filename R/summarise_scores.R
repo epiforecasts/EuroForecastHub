@@ -108,6 +108,7 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
     full_join(rel_wis, by = c("model", "target_variable", "horizon", "location")) %>%
     full_join(coverage, by = c("model", "target_variable", "horizon", "location")) %>%
     full_join(bias, by = c("model", "target_variable", "horizon", "location")) %>%
+    full_join(num_fc, by = c("model", "target_variable", "horizon", "location")) %>%
     left_join(locations, by = "location") %>%
     mutate(across(c("bias", "rel_wis", "rel_ae", "cov_50", "cov_95"), round, 2))
 
