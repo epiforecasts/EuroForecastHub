@@ -26,9 +26,8 @@ run_multiple_ensembles <- function(forecast_dates,
   safe_run_ensemble <- safely(run_ensemble, otherwise = NULL)
   ensembles <- map2(methods,
                     dates,
-                    ~ safe_run_ensemble(method = .x,
-                                        forecast_date = .y,
-                                        ...))
+                    safe_run_ensemble,
+                    ...)
 
   # Add descriptive name
   names(ensembles) <- paste(methods, dates, sep = "-")
