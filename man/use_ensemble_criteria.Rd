@@ -8,7 +8,8 @@ use_ensemble_criteria(
   forecasts,
   exclude_models = NULL,
   exclude_designated_other = TRUE,
-  return_criteria = TRUE
+  return_criteria = TRUE,
+  eval_dir = here::here("evaluation", "weekly-summary")
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ as "other" in their metadata file (default \code{TRUE})}
 
 \item{return_criteria}{logical : whether to return a model/inclusion criteria
 grid as well as the ensemble forecast (default \code{TRUE})}
+
+\item{eval_dir}{character: the path in which to look for evaluation csv files}
 }
 \value{
 \itemize{

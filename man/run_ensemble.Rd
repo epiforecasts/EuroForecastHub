@@ -11,6 +11,7 @@ run_ensemble(
   return_criteria = TRUE,
   verbose = FALSE,
   exclude_designated_other = TRUE,
+  identifier = "",
   ...
 )
 }
@@ -31,6 +32,8 @@ be printed while running (defaults to \code{FALSE}).}
 
 \item{exclude_designated_other}{logical: whether to exclude models designated
 as "other" in their metadata file (default \code{TRUE})}
+
+\item{identifier}{an identifier to prepend to each model name}
 
 \item{...}{arguments passed to \code{\link[=create_ensemble_relative_skill]{create_ensemble_relative_skill()}}}
 }

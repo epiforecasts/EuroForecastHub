@@ -11,6 +11,7 @@ utils::globalVariables(c(
   "quantile", # <create_ensemble_average>
   "value", # <create_ensemble_average>
   ".data", # <create_ensemble_relative_skill>
+  "weeks_included", # <create_ensemble_relative_skill>
   "model", # <create_ensemble_relative_skill>
   "target_variable", # <create_ensemble_relative_skill>
   "horizon", # <create_ensemble_relative_skill>

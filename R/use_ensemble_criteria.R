@@ -8,6 +8,7 @@
 #' as "other" in their metadata file (default `TRUE`)
 #' @param return_criteria logical : whether to return a model/inclusion criteria
 #' grid as well as the ensemble forecast (default `TRUE`)
+#' @param eval_dir character: the path in which to look for evaluation csv files
 #'
 #' @return
 #' - if `return_criteria = TRUE`, a list with the following elements
@@ -34,7 +35,8 @@
 use_ensemble_criteria <- function(forecasts,
                                   exclude_models = NULL,
                                   exclude_designated_other = TRUE,
-                                  return_criteria = TRUE) {
+                                  return_criteria = TRUE,
+                                  eval_dir = here::here("evaluation", "weekly-summary")) {
 
   # Remove point forecasts
   forecasts <- filter(forecasts, type == "quantile")
