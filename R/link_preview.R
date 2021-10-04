@@ -44,6 +44,10 @@ link_preview <- function(gh_repo, pr_number, data_folder = "data-processed") {
     value = TRUE
   )
 
+  if (length(forecasts_files) == 0) {
+    return(NULL)
+  }
+
   preview_links <- paste0(
     "https://epiforecasts.shinyapps.io/ecdc_submission/?file=",
     forecast_files
