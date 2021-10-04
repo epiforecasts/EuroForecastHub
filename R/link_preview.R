@@ -44,7 +44,7 @@ link_preview <- function(gh_repo, pr_number, data_folder = "data-processed") {
     value = TRUE
   )
 
-  if (length(forecasts_files) == 0) {
+  if (length(forecast_files) == 0) {
     return(NULL)
   }
 
