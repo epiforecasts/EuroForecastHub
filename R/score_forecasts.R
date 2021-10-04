@@ -84,6 +84,7 @@ score_forecasts <- function(forecasts, quantiles = NULL) {
                   )) %>%
     left_join(locations, by = "location") %>%
     relocate(location_name, .after = location) %>%
+    mutate(bias = round(bias, 1)) %>%
     mutate(across(c("wis", "sharpness", "underprediction",
                     "overprediction"), round))
 
