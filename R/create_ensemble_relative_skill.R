@@ -52,8 +52,6 @@ create_ensemble_relative_skill <- function(forecasts,
 
   if (verbose) {message(paste0("Relative skill evaluation as of ",
                                evaluation_date))}
-  # include only models with forecasts,
-  #   with evaluation for >= x weeks
   skill <- evaluation %>%
     select(model, target_variable,
            horizon, location, relative_skill) %>%
