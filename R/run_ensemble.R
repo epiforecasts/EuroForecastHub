@@ -32,7 +32,7 @@ run_ensemble <- function(method = "mean",
   methods <- sub("^.*-", "", dir(here("ensembles", "data-processed")))
 
   if (missing(method)) {
-    method <- get_hub_config("ensemble_method")
+    method <- get_hub_config("ensemble")[["method"]]
   }
   method <- match.arg(arg = method,
                       choices = methods,
