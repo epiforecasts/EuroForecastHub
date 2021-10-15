@@ -17,6 +17,8 @@
 #' @importFrom covidHubUtils load_forecasts
 #' @importFrom dplyr %>% filter pull mutate group_by summarise if_else
 #'
+#' @autoglobal
+#'
 #' @export
 
 run_ensemble <- function(method = "mean",

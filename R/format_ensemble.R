@@ -15,6 +15,8 @@
 #' @importFrom dplyr ungroup mutate
 #' @importFrom lubridate wday
 #'
+#' @autoglobal
+#'
 #' @export
 #
 

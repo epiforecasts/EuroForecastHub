@@ -7,6 +7,8 @@
 #' @importFrom tidyr pivot_wider
 #' @importFrom scoringutils eval_forecasts
 #'
+#' @autoglobal
+#'
 #' @export
 score_forecasts <- function(forecasts, quantiles = NULL) {
 

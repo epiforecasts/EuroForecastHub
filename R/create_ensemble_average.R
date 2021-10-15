@@ -9,6 +9,8 @@
 #' @importFrom dplyr group_by %>% summarise n
 #' @importFrom stats median
 #'
+#' @autoglobal
+#'
 #' @export
 
 create_ensemble_average <- function(forecasts,

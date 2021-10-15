@@ -28,6 +28,8 @@
 #' @importFrom dplyr filter %>% group_by summarise mutate left_join select inner_join
 #' @importFrom here here
 #'
+#' @autoglobal
+#'
 #' @export
 use_ensemble_criteria <- function(forecasts,
                                   exclude_models = NULL,

@@ -8,6 +8,8 @@
 #'
 #' @importFrom dplyr %>% filter mutate
 #'
+#' @autoglobal
+#'
 #' @export
 add_point_forecasts <- function(data) {
 

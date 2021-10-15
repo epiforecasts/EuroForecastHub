@@ -20,6 +20,8 @@
 #' @importFrom here here
 #' @importFrom dplyr select filter group_by %>% summarise mutate across all_of select_at n .data
 #'
+#' @autoglobal
+#'
 #' @export
 create_ensemble_relative_skill <- function(forecasts,
                                            evaluation_date,

@@ -11,6 +11,8 @@
 #' @importFrom lubridate weeks
 #' @importFrom scoringutils pairwise_comparison
 #'
+#' @autoglobal
+#'
 #' @export
 summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
 
