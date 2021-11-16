@@ -2,6 +2,7 @@
 #'
 #' @param method name of ensembling method
 #' @param forecast_date date or character
+#' @param identifier an identifier to prepend to each model name
 #' @inheritParams use_ensemble_criteria
 #' @inheritParams create_ensemble_relative_skill
 #' @param ... arguments passed to [create_ensemble_relative_skill()]
@@ -27,19 +28,10 @@ run_ensemble <- function(method = "mean",
                          return_criteria = TRUE,
                          verbose = FALSE,
                          exclude_designated_other = TRUE,
+                         identifier = "",
                          ...) {
 
   # Method ------------------------------------------------------------------
-  # Check method is supported
-  methods <- sub("^.*-", "", dir(here("ensembles", "data-processed")))
-
-  if (missing(method)) {
-    method <- get_hub_config("ensemble")[["method"]]
-  }
-  method <- match.arg(arg = method,
-                      choices = methods,
-                      several.ok = FALSE)
-
   if (verbose) {message(paste0("Ensemble method: ", method))}
 
   # Dates ------------------------------------------------------------------
@@ -76,7 +68,8 @@ run_ensemble <- function(method = "mean",
   forecasts <- use_ensemble_criteria(forecasts = all_forecasts,
                                      exclude_models = exclude_models,
                                      return_criteria = return_criteria,
-                                     exclude_designated_other = exclude_designated_other)
+                                     exclude_designated_other = exclude_designated_other,
+                                     ...)
 
   if (return_criteria) {
     criteria <- forecasts$criteria
@@ -139,7 +132,9 @@ run_ensemble <- function(method = "mean",
   if (return_criteria) {
     return(list("ensemble" = ensemble,
                 "criteria" = criteria,
-                "method" = method,
+                "method" = if_else(nchar(identifier) > 0,
+                                   paste(identifier, method, sep = "_"),
+                                   method),
                 "weights" = weights,
                 "forecast_date" = max(forecast_dates)))
   }

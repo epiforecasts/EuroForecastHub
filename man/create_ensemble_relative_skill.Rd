@@ -10,7 +10,9 @@ create_ensemble_relative_skill(
   continuous_weeks = 4,
   average = "mean",
   skill = "wis",
+  history = "All",
   by_horizon = FALSE,
+  eval_dir = here::here("evaluation", "weekly-summary"),
   return_criteria = FALSE,
   verbose = FALSE
 )
@@ -28,7 +30,11 @@ performance? A corresponding file containing evaluations is expected in \code{ev
 
 \item{skill}{the relative skill score to be used for creating the ensemble; a column called \code{rel_{skill}} is expected to exist in the evaluation csv file}
 
+\item{history}{the number of recent weeks of history to consider in determining the weights; either "All" or a number of weeks}
+
 \item{by_horizon}{whether to create the ensemble separately for each horizon (default: FALSE)}
+
+\item{eval_dir}{character: the path in which to look for evaluation csv files}
 
 \item{return_criteria}{logical : whether to return a model/inclusion criteria
 grid as well as the ensemble forecast (default \code{TRUE})}

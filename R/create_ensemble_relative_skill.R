@@ -7,6 +7,7 @@
 #' @param by_horizon weight using relative skill by horizon, rather than average
 #' @param skill the relative skill score to be used for creating the ensemble; a column called \code{rel_{skill}} is expected to exist in the evaluation csv file
 #' @param by_horizon whether to create the ensemble separately for each horizon (default: FALSE)
+#' @param history the number of recent weeks of history to consider in determining the weights; either "All" or a number of weeks
 #' @inheritParams weighted_average
 #' @inheritParams use_ensemble_criteria
 #' @param verbose Logical determining whether diagnostic messages should
@@ -29,7 +30,9 @@ create_ensemble_relative_skill <- function(forecasts,
                                            continuous_weeks = 4,
                                            average = "mean",
                                            skill = "wis",
+                                           history = "All",
                                            by_horizon = FALSE,
+                                           eval_dir = here::here("evaluation", "weekly-summary"),
                                            return_criteria = FALSE,
                                            verbose = FALSE) {
 
@@ -41,7 +44,7 @@ create_ensemble_relative_skill <- function(forecasts,
   }
 
   evaluation <- try(suppressMessages(
-    vroom(here("evaluation", paste0("evaluation-", evaluation_date, ".csv")))))
+    vroom(here(eval_dir, paste0("evaluation-", evaluation_date, ".csv")))))
   # evaluation error catching
   if ("try-error" %in% class(evaluation)) {
     stop(paste0("Evaluation not found for ", evaluation_date))
@@ -51,6 +54,12 @@ create_ensemble_relative_skill <- function(forecasts,
   } else {
     evaluation <- evaluation %>%
       mutate(relative_skill = as.numeric(.data[[col_name]]))
+  }
+
+  if ("weeks_included" %in% colnames(evaluation)) {
+    evaluation <- evaluation %>%
+      filter(weeks_included == history) %>%
+      select(-weeks_included)
   }
 
   if (verbose) {message(paste0("Relative skill evaluation as of ",
