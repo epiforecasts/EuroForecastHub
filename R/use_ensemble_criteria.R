@@ -9,6 +9,8 @@
 #' @param return_criteria logical : whether to return a model/inclusion criteria
 #' grid as well as the ensemble forecast (default `TRUE`)
 #' @param eval_dir character: the path in which to look for evaluation csv files
+#' @param rel_wis_cutoff numeric: any model with relative WIS greater than this
+#' value will be excluded
 #'
 #' @return
 #' - if `return_criteria = TRUE`, a list with the following elements
@@ -27,6 +29,7 @@
 #' 4. Not the hub ensemble
 #'
 #' @importFrom dplyr filter %>% group_by summarise mutate left_join select inner_join
+#' @importFrom tidyr replace_na
 #' @importFrom here here
 #'
 #' @autoglobal
@@ -82,11 +85,33 @@ use_ensemble_criteria <- function(forecasts,
       filter(model %in% not_other$model)
   }
 
+  # 6. Cut-off by relative WIS
+  if (is.finite(rel_wis_cutoff)) {
+    evaluation_date <- max(forecasts$forecast_date)
+    evaluation_file <- here("evaluation", paste0("evaluation-", evaluation_date, ".csv"))
+    if (file.exists(evaluation_file)) {
+      evaluation <- vroom(evaluation_file) %>%
+        filter(!is.na(rel_wis)) %>%
+        group_by(model, target_variable, location) %>%
+        summarise(rel_wis = all(rel_wis < rel_wis_cutoff), .groups = "drop")
+      criteria <- criteria %>%
+        left_join(evaluation, by = c("model", "target_variable", "location")) %>%
+        replace_na(list(rel_wis = FALSE))
+    } else {
+      warning("Evaluation file ", evaluation_file, " does not exist. ",
+              "Not excluding any model by relative WIS.")
+      criteria$rel_wis <- TRUE
+    }
+  } else {
+    criteria$rel_wis <- TRUE
+  }
+
   # Clarify inclusion and exclusion for all models by location/variable
   include <- filter(criteria,
                     all_quantiles_all_horizons &
                       all_horizons &
-                      not_excluded_manually) %>%
+                      not_excluded_manually &
+                      rel_wis) %>%
     select(model, target_variable, location) %>%
     mutate(included_in_ensemble = TRUE)
 

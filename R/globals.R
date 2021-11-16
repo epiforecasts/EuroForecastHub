@@ -80,6 +80,7 @@ utils::globalVariables(c(
   "all_quantiles_present", # <use_ensemble_criteria>
   "horizon", # <use_ensemble_criteria>
   "designation", # <use_ensemble_criteria>
+  "rel_wis", # <use_ensemble_criteria>
   "all_quantiles_all_horizons", # <use_ensemble_criteria>
   "not_excluded_manually", # <use_ensemble_criteria>
   "included_in_ensemble", # <use_ensemble_criteria>

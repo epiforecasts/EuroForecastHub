@@ -9,7 +9,8 @@ use_ensemble_criteria(
   exclude_models = NULL,
   exclude_designated_other = TRUE,
   return_criteria = TRUE,
-  eval_dir = here::here("evaluation", "weekly-summary")
+  eval_dir = here::here("evaluation", "weekly-summary"),
+  rel_wis_cutoff = Inf
 )
 }
 \arguments{
@@ -27,6 +28,9 @@ as "other" in their metadata file (default \code{TRUE})}
 grid as well as the ensemble forecast (default \code{TRUE})}
 
 \item{eval_dir}{character: the path in which to look for evaluation csv files}
+
+\item{rel_wis_cutoff}{numeric: any model with relative WIS greater than this
+value will be excluded}
 }
 \value{
 \itemize{
