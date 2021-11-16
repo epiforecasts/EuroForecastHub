@@ -71,8 +71,8 @@ use_ensemble_criteria <- function(forecasts,
     left_join(all_horizons,
               by = c("model", "target_variable", "location")) %>%
     mutate(not_excluded_manually = !(model %in% exclude_models)) %>%
-  # 4. Drop hub ensemble model
-    filter(!grepl("EuroCOVIDhub-ensemble", model))
+  # 4. Drop hub models
+    filter(!grepl("^EuroCOVIDhub-", model))
 
   # 5. Drop "other" designated models
   if (exclude_designated_other) {
