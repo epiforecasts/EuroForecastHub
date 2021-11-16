@@ -9,7 +9,7 @@
 #'
 #' @return a list of ensembles with forecasts, method, forecast date, criteria
 #'
-#' @importFrom purrr safely map2
+#' @importFrom purrr map2
 #'
 #' @export
 
@@ -23,10 +23,9 @@ run_multiple_ensembles <- function(forecast_dates,
   methods <- rep(methods, length(forecast_dates))
 
   # Run ensembles
-  safe_run_ensemble <- safely(run_ensemble, otherwise = NULL)
   ensembles <- map2(methods,
                     dates,
-                    safe_run_ensemble,
+                    run_ensemble,
                     ...)
 
   # Add descriptive name
