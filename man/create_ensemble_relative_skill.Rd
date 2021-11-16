@@ -28,7 +28,7 @@ performance? A corresponding file containing evaluations is expected in \code{ev
 
 \item{skill}{the relative skill score to be used for creating the ensemble; a column called \code{rel_{skill}} is expected to exist in the evaluation csv file}
 
-\item{by_horizon}{weight using relative skill by horizon, rather than average}
+\item{by_horizon}{whether to create the ensemble separately for each horizon (default: FALSE)}
 
 \item{return_criteria}{logical : whether to return a model/inclusion criteria
 grid as well as the ensemble forecast (default \code{TRUE})}

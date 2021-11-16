@@ -6,6 +6,7 @@
 #' @param continuous_weeks include only forecasts with a history of evaluation
 #' @param by_horizon weight using relative skill by horizon, rather than average
 #' @param skill the relative skill score to be used for creating the ensemble; a column called \code{rel_{skill}} is expected to exist in the evaluation csv file
+#' @param by_horizon whether to create the ensemble separately for each horizon (default: FALSE)
 #' @inheritParams weighted_average
 #' @inheritParams use_ensemble_criteria
 #' @param verbose Logical determining whether diagnostic messages should
