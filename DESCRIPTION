@@ -19,6 +19,7 @@ Imports:
     dplyr,
     gh,
     here,
+    jsonlite,
     lubridate,
     purrr,
     scoringutils,

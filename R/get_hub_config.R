@@ -10,13 +10,14 @@
 #' # Get config for European COVID-19 forecast hub
 #' get_hub_config(config_file = "https://raw.githubusercontent.com/epiforecasts/covid19-forecast-hub-europe/main/forecasthub.yml")
 #'
-get_hub_config <- function(setting, config_file = here::here("forecasthub.yml")) {
+get_hub_config <- function(setting, config_file = here::here("project-config.json")) {
 
   if (missing(setting)) {
-    yaml::read_yaml(config_file)
+    jsonlite::read_json(config_file, simplifyVector = TRUE)
   }
 
   else {
-    yaml::read_yaml(config_file)[[setting]]
+    jsonlite::read_json(config_file, simplifyVector = TRUE)[[setting]]
   }
 }
+
