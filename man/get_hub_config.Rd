@@ -4,7 +4,7 @@
 \alias{get_hub_config}
 \title{Get the value of setting from config file}
 \usage{
-get_hub_config(setting, config_file = here::here("forecasthub.yml"))
+get_hub_config(setting, config_file = here::here("project-config.json"))
 }
 \arguments{
 \item{setting}{Setting for which to return the value. All values are returned
@@ -17,6 +17,6 @@ Get the value of setting from config file
 }
 \examples{
 # Get config for European COVID-19 forecast hub
-get_hub_config(config_file = "https://raw.githubusercontent.com/epiforecasts/covid19-forecast-hub-europe/main/forecasthub.yml")
+get_hub_config(config_file = "https://raw.githubusercontent.com/epiforecasts/covid19-forecast-hub-europe/main/project-config.json")
 
 }
