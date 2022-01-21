@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' # Get config for European COVID-19 forecast hub
-#' get_hub_config(config_file = "https://raw.githubusercontent.com/epiforecasts/covid19-forecast-hub-europe/main/forecasthub.yml")
+#' get_hub_config(config_file = "https://raw.githubusercontent.com/epiforecasts/covid19-forecast-hub-europe/main/project-config.json")
 #'
 get_hub_config <- function(setting, config_file = here::here("project-config.json")) {
 
