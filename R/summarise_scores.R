@@ -41,12 +41,13 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
   score_df <- score_df %>%
     group_by(model, target_variable, location, horizon) %>%
     mutate(n = n_distinct(location_name)) %>%
-    ungroup() %>%
+    group_by(target_variable) %>%
     mutate(nall = n_distinct(location_name)) %>%
+    ungroup() %>%
     filter(location != "Overall" | n >= nall / 2) %>%
     select(-n, -nall)
 
-  ## continuous weeks of submission
+  ## continuous weeks of submission leading up to the present
   if (restrict_weeks > 0) {
     cont_weeks <- score_df %>%
       group_by(forecast_date, model, location, target_variable, horizon) %>%
