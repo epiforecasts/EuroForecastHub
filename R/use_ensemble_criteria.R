@@ -39,7 +39,8 @@ use_ensemble_criteria <- function(forecasts,
                                   exclude_models = NULL,
                                   exclude_designated_other = TRUE,
                                   return_criteria = TRUE,
-                                  eval_dir = here::here("evaluation", "weekly-summary")) {
+                                  eval_dir = here::here("evaluation", "weekly-summary"),
+                                  rel_wis_cutoff = Inf) {
 
   # Remove point forecasts
   forecasts <- filter(forecasts, type == "quantile")
