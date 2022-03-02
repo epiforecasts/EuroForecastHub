@@ -5,7 +5,7 @@
 #'
 #' @importFrom dplyr group_by mutate ungroup filter select summarise left_join select across if_else n_distinct rename relocate
 #' @importFrom tidyr pivot_wider
-#' @importFrom scoringutils eval_forecasts
+#' @importFrom scoringutils score summarise_scores
 #'
 #' @autoglobal
 #'
@@ -41,10 +41,10 @@ score_forecasts <- function(forecasts, quantiles = NULL) {
    ## Calibration metrics (50 and 95 percent coverage and bias);
   ## 1 if truth within prediction interval, 0 otherwise
   coverage <- fc_df %>%
-    eval_forecasts(
-      summarise_by = c("model", "target_variable", "forecast_date",
-                       "target_end_date", "range", "horizon", "location"),
-      metrics = "coverage",
+    score(metrics = "coverage") %>%
+    scoringutils::summarise_scores(
+      by = c("model", "target_variable", "forecast_date", "target_end_date",
+             "range", "horizon", "location")
     ) %>%
     filter(range %in% c(50, 95)) %>%
     select(model, target_variable, forecast_date, target_end_date, horizon,
@@ -58,10 +58,10 @@ score_forecasts <- function(forecasts, quantiles = NULL) {
   ## ae: absolute error of the median (or point forecast if not give)
   ## wis: weighted interval score
   scores <- fc_df %>%
-    eval_forecasts(
-      summarise_by = c("model", "target_variable", "forecast_date",
-                       "target_end_date", "horizon", "location"),
-      metrics = c("interval_score", "aem", "bias"),
+    score(metrics = c("interval_score", "aem", "bias")) %>%
+    scoringutils::summarise_scores(
+      by = c("model", "target_variable", "forecast_date", "target_end_date",
+             "horizon", "location")
     ) %>%
     select(model, target_variable, forecast_date, target_end_date,
            horizon, location, wis = interval_score,
