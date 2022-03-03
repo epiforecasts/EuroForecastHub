@@ -70,8 +70,7 @@ run_ensemble <- function(method = "mean",
                                      exclude_models = exclude_models,
                                      return_criteria = return_criteria,
                                      exclude_designated_other = exclude_designated_other,
-                                     rel_wis_cutoff = rel_wis_cutoff,
-                                     ...)
+                                     rel_wis_cutoff = rel_wis_cutoff)
 
   if (return_criteria) {
     criteria <- forecasts$criteria
