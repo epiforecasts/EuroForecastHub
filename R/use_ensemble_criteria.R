@@ -116,6 +116,10 @@ use_ensemble_criteria <- function(forecasts,
     select(model, target_variable, location) %>%
     mutate(included_in_ensemble = TRUE)
 
+  if (nrow(include) == 0) {
+    warning("No models left after applying inclusion criteria.")
+  }
+
   criteria <- left_join(criteria, include,
                         by = c("model", "target_variable", "location")) %>%
     mutate(included_in_ensemble = ifelse(is.na(included_in_ensemble),
