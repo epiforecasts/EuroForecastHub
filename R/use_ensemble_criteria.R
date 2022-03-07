@@ -89,7 +89,7 @@ use_ensemble_criteria <- function(forecasts,
   # 6. Cut-off by relative WIS
   if (is.finite(rel_wis_cutoff)) {
     evaluation_date <- max(forecasts$forecast_date)
-    evaluation_file <- here("evaluation", paste0("evaluation-", evaluation_date, ".csv"))
+    evaluation_file <- file.path(eval_dir, paste0("evaluation-", evaluation_date, ".csv"))
     if (file.exists(evaluation_file)) {
       evaluation <- vroom(evaluation_file) %>%
         filter(!is.na(rel_wis)) %>%
