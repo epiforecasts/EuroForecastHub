@@ -12,6 +12,7 @@ run_ensemble(
   verbose = FALSE,
   exclude_designated_other = TRUE,
   identifier = "",
+  rel_wis_cutoff = Inf,
   ...
 )
 }
@@ -34,6 +35,9 @@ be printed while running (defaults to \code{FALSE}).}
 as "other" in their metadata file (default \code{TRUE})}
 
 \item{identifier}{an identifier to prepend to each model name}
+
+\item{rel_wis_cutoff}{numeric: any model with relative WIS greater than this
+value will be excluded}
 
 \item{...}{arguments passed to \code{\link[=create_ensemble_relative_skill]{create_ensemble_relative_skill()}}}
 }
