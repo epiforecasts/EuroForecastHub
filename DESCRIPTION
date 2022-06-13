@@ -22,15 +22,14 @@ Imports:
     jsonlite,
     lubridate,
     purrr,
-    scoringutils (>= 1.0.0),
+    scoringutils,
     tidyr,
     vroom,
     yaml
 Remotes: 
     reichlab/covidHubUtils,
     reichlab/covidModels/R-package,
-    anthonynorth/roxyglobals,
-    epiforecasts/scoringutils@major-update
+    anthonynorth/roxyglobals
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
