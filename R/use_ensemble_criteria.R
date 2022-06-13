@@ -46,8 +46,7 @@ use_ensemble_criteria <- function(forecasts,
   forecasts <- filter(forecasts, type == "quantile")
 
   # 1. Identify models with all quantiles
-  # TODO: get quantiles from config file
-  quantiles <- round(c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), 3)
+  quantiles <- get_hub_config("forecast_type")$quantiles
   all_quantiles <- forecasts %>%
     # Check all quantiles per target/location
     group_by(model, target_variable, location, target_end_date) %>%
@@ -60,8 +59,7 @@ use_ensemble_criteria <- function(forecasts,
               .groups = "drop")
 
   # 2. Identify models with 4 week forecasts
-  # TODO: get horizons from config file
-  horizons <- 1:4
+  horizons <- get_hub_config("horizon")$values
   all_horizons <- forecasts %>%
     group_by(model, target_variable, location) %>%
     summarise(all_horizons =
