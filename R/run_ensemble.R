@@ -86,12 +86,12 @@ run_ensemble <- function(method = "mean",
     mutate(quantile = round(quantile, 3),
            horizon = as.numeric(horizon))
 
-  if (min_nmodels > 0) {
-    forecasts <- forecasts %>%
-      group_by(forecast_date, location, horizon, temporal_resolution,
-               target_variable) %>%
-      filter(n_distinct(model) >= min_nmodels)
-  }
+  ## if min_nmodels is >0, this will ensure at least that many models
+  ## are included in the ensemble
+  forecasts <- forecasts %>%
+    group_by(forecast_date, location, horizon, temporal_resolution,
+             target_variable) %>%
+    filter(n_distinct(model) >= min_nmodels)
 
   # Run  ensembles ---------------------------------------------------
   # Averages
