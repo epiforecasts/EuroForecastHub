@@ -2,6 +2,7 @@
 #'
 #' @param method name of ensembling method
 #' @param forecast_date date or character
+#' @param min_nmodels minimum number of models to create an ensemble
 #' @param identifier an identifier to prepend to each model name
 #' @inheritParams use_ensemble_criteria
 #' @inheritParams create_ensemble_relative_skill
@@ -25,6 +26,7 @@
 run_ensemble <- function(method = "mean",
                          forecast_date,
                          exclude_models = NULL,
+                         min_nmodels = 0,
                          return_criteria = TRUE,
                          verbose = FALSE,
                          exclude_designated_other = TRUE,
@@ -72,6 +74,8 @@ run_ensemble <- function(method = "mean",
                                      exclude_designated_other = exclude_designated_other,
                                      rel_wis_cutoff = rel_wis_cutoff)
 
+
+
   if (return_criteria) {
     criteria <- forecasts$criteria
     forecasts <- forecasts$forecasts
@@ -81,6 +85,13 @@ run_ensemble <- function(method = "mean",
     filter(type == "quantile") %>%
     mutate(quantile = round(quantile, 3),
            horizon = as.numeric(horizon))
+
+  ## if min_nmodels is >0, this will ensure at least that many models
+  ## are included in the ensemble
+  forecasts <- forecasts %>%
+    group_by(forecast_date, location, horizon, temporal_resolution,
+             target_variable) %>%
+    filter(n_distinct(model) >= min_nmodels)
 
   # Run  ensembles ---------------------------------------------------
   # Averages

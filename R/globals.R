@@ -34,8 +34,9 @@ utils::globalVariables(c(
   "type", # <run_ensemble>
   "quantile", # <run_ensemble>
   "horizon", # <run_ensemble>
-  "target_variable", # <run_ensemble>
   "location", # <run_ensemble>
+  "temporal_resolution", # <run_ensemble>
+  "target_variable", # <run_ensemble>
   "weight", # <run_ensemble>
   "included_in_ensemble", # <run_ensemble>
   "location", # <score_forecasts>
