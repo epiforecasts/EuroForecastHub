@@ -90,9 +90,7 @@ run_ensemble <- function(method = "mean",
     forecasts <- forecasts %>%
       group_by(forecast_date, location, horizon, temporal_resolution,
                target_variable) %>%
-      mutate(n = n_distinct(model)) %>%
-      filter(n >= min_nmodels) %>%
-      select(-n)
+      filter(n_distinct(model) >= min_nmodels)
   }
 
   # Run  ensembles ---------------------------------------------------
