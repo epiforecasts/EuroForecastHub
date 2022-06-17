@@ -8,6 +8,7 @@ run_ensemble(
   method = "mean",
   forecast_date,
   exclude_models = NULL,
+  min_nmodels = 0,
   return_criteria = TRUE,
   verbose = FALSE,
   exclude_designated_other = TRUE,
@@ -24,6 +25,8 @@ run_ensemble(
 \item{exclude_models}{optional character vector to exclude over all dates,
 or data.frame with cols model and forecast_date, to exclude for specific
 dates}
+
+\item{min_nmodels}{minimum number of models to create an ensemble}
 
 \item{return_criteria}{logical : whether to return a model/inclusion criteria
 grid as well as the ensemble forecast (default \code{TRUE})}
