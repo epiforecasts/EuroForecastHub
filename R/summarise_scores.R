@@ -80,7 +80,6 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
       metric = "ae_median",
       baseline = "EuroCOVIDhub-baseline",
       by = c("model", "target_variable", "horizon", "location", "location_name"),
-      summarise_by = c("model", "target_variable", "horizon", "location")
     ) %>%
     select(model, target_variable, horizon, location, rel_ae = scaled_rel_skill) %>%
     distinct()
@@ -92,9 +91,7 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
     pairwise_comparison(
       metric = "interval_score",
       baseline = "EuroCOVIDhub-baseline",
-      by = c("model", "target_variable", "forecast_date", "horizon",
-             "location", "location_name"),
-      summarise_by = c("model", "target_variable", "horizon", "location")
+      by = c("model", "target_variable", "horizon", "location", "location_name"),
     ) %>%
     select(model, target_variable, horizon, location, rel_wis = scaled_rel_skill) %>%
     distinct()
