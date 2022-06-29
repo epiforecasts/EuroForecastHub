@@ -58,15 +58,15 @@ score_forecasts <- function(forecasts, quantiles = NULL) {
   ## ae: absolute error of the median (or point forecast if not give)
   ## wis: weighted interval score
   scores <- fc_df %>%
-    score(metrics = c("interval_score", "aem", "bias")) %>%
+    score(metrics = c("interval_score", "ae_median", "bias")) %>%
     scoringutils::summarise_scores(
       by = c("model", "target_variable", "forecast_date", "target_end_date",
              "horizon", "location")
     ) %>%
     select(model, target_variable, forecast_date, target_end_date,
            horizon, location, wis = interval_score,
-           sharpness, underprediction, overprediction,
-           aem, bias)
+           sharpness = dispersion, underprediction, overprediction,
+           ae_median, bias)
 
   ## record number of quantiles that are provided
   nq <- fc_df %>%
