@@ -75,9 +75,9 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
 
   rel_ae <- score_df %>%
     select(model, target_variable, horizon, location, location_name,
-           forecast_date, aem) %>%
+           forecast_date, ae_median) %>%
     pairwise_comparison(
-      metric = "aem",
+      metric = "ae_median",
       baseline = "EuroCOVIDhub-baseline",
       by = c("model", "target_variable", "horizon", "location", "location_name"),
       summarise_by = c("model", "target_variable", "horizon", "location")
