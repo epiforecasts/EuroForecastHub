@@ -12,9 +12,7 @@
 get_model_designations <- function(hub_repo_path) {
 
   metadata_files <- list.files(
-    file.path(hub_repo_path, "data-processed"),
-    recursive = TRUE,
-    pattern = "metadata-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)\\.yml",
+    file.path("metadata"),
     full.names = TRUE
   )
   metadata <- purrr::map(metadata_files, yaml::read_yaml)
