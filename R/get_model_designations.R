@@ -12,7 +12,7 @@
 get_model_designations <- function(hub_repo_path) {
 
   metadata_files <- list.files(
-    file.path("metadata"),
+    file.path("model-metadata"),
     full.names = TRUE
   )
   metadata <- purrr::map(metadata_files, yaml::read_yaml)
