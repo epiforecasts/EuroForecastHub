@@ -99,7 +99,9 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
   ## calibration metrics (50 and 95 percent coverage and bias)
   coverage <- score_df %>%
     group_by(model, target_variable, horizon, location) %>%
-    summarise(across(starts_with("cov_"), mean), .groups = "drop")
+    summarise(
+      across(starts_with("cov_"), ~ mean(.x, na.rm = TRUE)), .groups = "drop"
+    )
   bias <- score_df %>%
     filter(n_quantiles == 23) %>%
     group_by(model, target_variable, horizon, location) %>%
