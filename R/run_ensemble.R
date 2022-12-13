@@ -96,6 +96,11 @@ run_ensemble <- function(method = "mean",
   # Run  ensembles ---------------------------------------------------
   # Averages
   if (method %in% c("mean", "median")) {
+    if (length(list(...)) > 0) {
+      stop("Unknown arguments passed to `run_ensemble`: ",
+           names(list(...)))
+    }
+
     ensemble <- create_ensemble_average(method = method,
                                         forecasts = forecasts)
     if (return_criteria) {
