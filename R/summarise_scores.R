@@ -14,7 +14,8 @@
 #' @autoglobal
 #'
 #' @export
-summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
+summarise_scores <- function(scores, report_date, restrict_weeks = 0L,
+                             mean_scores_ratio = FALSE) {
 
   last_forecast_date <- report_date - 7
 
@@ -93,8 +94,15 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
       baseline = "EuroCOVIDhub-baseline",
       by = c("model", "target_variable", "horizon", "location"),
     ) %>%
-    select(model, target_variable, horizon, location, rel_wis = scaled_rel_skill) %>%
-    distinct()
+    select(model, target_variable, horizon, location,
+           rel_wis = scaled_rel_skill,
+           compare_against, mean_scores_ratio)
+
+  if (!mean_scores_ratio) {
+    rel_wis <- rel_wis |>
+      select(-c(compare_against, mean_scores_ratio)) |>
+      distinct()
+  }
 
   ## calibration metrics (50 and 95 percent coverage and bias)
   coverage <- score_df %>%
@@ -114,7 +122,9 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
     left_join(num_fc, by = c("model", "target_variable", "horizon", "location")) %>%
     left_join(num_loc, by = c("model", "target_variable", "horizon", "location")) %>%
     left_join(locations, by = "location") %>%
-    mutate(across(c("bias", "rel_wis", "rel_ae", "cov_50", "cov_95"), round, 2))
+    mutate(across(any_of(c("bias", "rel_wis", "mean_scores_ratio", "rel_ae",
+                           "cov_50", "cov_95")),
+                      round, 2))
 
   return(table)
 }
