@@ -5,6 +5,7 @@
 #' @param restrict_weeks Integer number of continuous weeks continuous weeks
 #' leading up to the `report_date` the forecasts need to include to be
 #' considered in the scoring.
+#' @param mean_scores_ratio return mean score ratio for each model against all other models, as well as relative WIS 
 #'
 #' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join select across n_distinct full_join distinct starts_with
 #' @importFrom tidyr complete replace_na
