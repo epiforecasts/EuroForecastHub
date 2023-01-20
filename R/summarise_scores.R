@@ -5,7 +5,6 @@
 #' @param restrict_weeks Integer number of continuous weeks continuous weeks
 #' leading up to the `report_date` the forecasts need to include to be
 #' considered in the scoring.
-#'
 #' @importFrom dplyr group_by mutate ungroup filter select bind_rows count summarise left_join select across n_distinct full_join distinct starts_with
 #' @importFrom tidyr complete replace_na
 #' @importFrom lubridate weeks
@@ -84,7 +83,7 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
     select(model, target_variable, horizon, location, rel_ae = scaled_rel_skill) %>%
     distinct()
 
-  rel_wis <- score_df %>%
+  pairwise_interval_scores <- score_df %>%
     filter(n_quantiles == 23) %>%
     select(model, target_variable, horizon, location, location_name,
            forecast_date, interval_score = wis) %>%
@@ -92,9 +91,17 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
       metric = "interval_score",
       baseline = "EuroCOVIDhub-baseline",
       by = c("model", "target_variable", "horizon", "location"),
-    ) %>%
-    select(model, target_variable, horizon, location, rel_wis = scaled_rel_skill) %>%
+    )
+
+  rel_wis <- pairwise_interval_scores %>%
+    select(model, target_variable, horizon, location,
+           rel_wis = scaled_rel_skill) %>%
     distinct()
+
+  msr_baseline <- pairwise_interval_scores %>%
+    filter(compare_against == "EuroCOVIDhub-baseline") %>%
+    select(model, target_variable, horizon, location,
+           msr_baseline = mean_scores_ratio)
 
   ## calibration metrics (50 and 95 percent coverage and bias)
   coverage <- score_df %>%
@@ -109,12 +116,15 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
 
   table <- rel_ae %>%
     full_join(rel_wis, by = c("model", "target_variable", "horizon", "location")) %>%
+    full_join(msr_baseline, by = c("model", "target_variable", "horizon", "location")) %>%
     full_join(coverage, by = c("model", "target_variable", "horizon", "location")) %>%
     full_join(bias, by = c("model", "target_variable", "horizon", "location")) %>%
     left_join(num_fc, by = c("model", "target_variable", "horizon", "location")) %>%
     left_join(num_loc, by = c("model", "target_variable", "horizon", "location")) %>%
     left_join(locations, by = "location") %>%
-    mutate(across(c("bias", "rel_wis", "rel_ae", "cov_50", "cov_95"), round, 2))
+    mutate(across(any_of(c("bias", "rel_wis", "msr_baseline", "rel_ae",
+                           "cov_50", "cov_95")),
+                      round, 2))
 
   return(table)
 }
