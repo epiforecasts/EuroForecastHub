@@ -37,6 +37,7 @@ utils::globalVariables(c(
   "location", # <run_ensemble>
   "temporal_resolution", # <run_ensemble>
   "target_variable", # <run_ensemble>
+  "target_end_date", # <run_ensemble>
   "weight", # <run_ensemble>
   "included_in_ensemble", # <run_ensemble>
   "location", # <score_forecasts>
@@ -52,10 +53,10 @@ utils::globalVariables(c(
   "target_end_date", # <score_forecasts>
   "horizon", # <score_forecasts>
   "interval_score", # <score_forecasts>
-  "sharpness", # <score_forecasts>
+  "dispersion", # <score_forecasts>
   "underprediction", # <score_forecasts>
   "overprediction", # <score_forecasts>
-  "aem", # <score_forecasts>
+  "ae_median", # <score_forecasts>
   "bias", # <score_forecasts>
   "location", # <summarise_scores>
   "location_name", # <summarise_scores>
@@ -68,7 +69,7 @@ utils::globalVariables(c(
   "nall", # <summarise_scores>
   "present", # <summarise_scores>
   "continuous_weeks", # <summarise_scores>
-  "aem", # <summarise_scores>
+  "ae_median", # <summarise_scores>
   "scaled_rel_skill", # <summarise_scores>
   "n_quantiles", # <summarise_scores>
   "wis", # <summarise_scores>
