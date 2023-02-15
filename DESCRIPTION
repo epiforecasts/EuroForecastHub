@@ -34,6 +34,6 @@ Language: en-GB
 Roxygen: list(
     markdown = TRUE,
     roclets = c("collate", "namespace", "rd", "roxyglobals::global_roclet"))
-RoxygenNote: 7.1.2.9000
+RoxygenNote: 7.2.3
 Suggests: 
     roxyglobals (>= 0.2.1)
