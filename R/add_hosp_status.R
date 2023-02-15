@@ -4,6 +4,7 @@
 ##' @return an updated data frame
 ##' @importFrom dplyr mutate group_by ungroup summarise left_join
 ##' @importFrom tidyr replace_na
+##' @importFrom readr read_csv
 ##' @author Sebastian Funk
 ##' @export
 add_hosp_status <- function(x) {
