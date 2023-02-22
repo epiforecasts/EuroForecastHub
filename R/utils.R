@@ -28,10 +28,14 @@ weighted_average <- function(..., average = c("mean", "median")) {
 ##' The day on which the week ends is given by the config variable
 ##' \code{week_end_day}
 ##' @param x date to convert
-##  @inheritParams get_hub_config
+##' @param type character, whether to define weeks as for the "target"
+##' (default, i.e. week definition of the forecasts/targets) or "forecast",
+##' the forecast submission cycle, i.e. the week will end on the week
+##' day on which forecasts are submitted.
 ##'
 ##' @importFrom here here
 ##' @importFrom lubridate wday ceiling_date
+##' @inheritParams get_hub_config
 ##' @return converted date
 ##' @author Sebastian Funk
 ##' @export

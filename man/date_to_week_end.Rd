@@ -12,6 +12,13 @@ date_to_week_end(
 }
 \arguments{
 \item{x}{date to convert}
+
+\item{type}{character, whether to define weeks as for the "target"
+(default, i.e. week definition of the forecasts/targets) or "forecast",
+the forecast submission cycle, i.e. the week will end on the week
+day on which forecasts are submitted.}
+
+\item{config_file}{Path to the config file}
 }
 \value{
 converted date
