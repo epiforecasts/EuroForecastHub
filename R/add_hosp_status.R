@@ -9,7 +9,7 @@
 ##' @export
 add_hosp_status <- function(x) {
   hosp_status <- readr::read_csv(here::here(
-    "data-truth", "OWID", "truth_OWID-Weekly Incident hospitalizations.csv"
+    "data-truth", "OWID", "truth_OWID-Weekly Incident Hospitalizations.csv"
   ), show_col_types = FALSE)
   x <- x |>
     dplyr::left_join(
