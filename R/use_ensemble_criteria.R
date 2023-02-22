@@ -40,13 +40,16 @@ use_ensemble_criteria <- function(forecasts,
                                   exclude_designated_other = TRUE,
                                   return_criteria = TRUE,
                                   eval_dir = here::here("evaluation", "weekly-summary"),
-                                  rel_wis_cutoff = Inf) {
+                                  rel_wis_cutoff = Inf,
+                                  config_file = here::here("project-config.json")) {
 
   # Remove point forecasts
   forecasts <- filter(forecasts, type == "quantile")
 
   # 1. Identify models with all quantiles
-  quantiles <- get_hub_config("forecast_type")$quantiles
+  quantiles <- get_hub_config(
+    "forecast_type", config_file = config_file
+  )$quantiles
   all_quantiles <- forecasts %>%
     # Check all quantiles per target/location
     group_by(model, target_variable, location, target_end_date) %>%
@@ -59,7 +62,7 @@ use_ensemble_criteria <- function(forecasts,
               .groups = "drop")
 
   # 2. Identify models with 4 week forecasts
-  horizons <- get_hub_config("horizon")$values
+  horizons <- get_hub_config("horizon", config_file = config_file)$values
   all_horizons <- forecasts %>%
     group_by(model, target_variable, location) %>%
     summarise(all_horizons =
