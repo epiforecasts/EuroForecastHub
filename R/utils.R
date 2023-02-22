@@ -22,3 +22,43 @@ weighted_average <- function(..., average = c("mean", "median")) {
   }
 
 }
+
+##' Convert a date to the last date of the week it's in
+##'
+##' The day on which the week ends is given by the config variable
+##' \code{week_end_day}
+##' @param x date to convert
+##' @param type character, whether to define weeks as for the "target"
+##' (default, i.e. week definition of the forecasts/targets) or "forecast",
+##' the forecast submission cycle, i.e. the week will end on the week
+##' day on which forecasts are submitted.
+##'
+##' @importFrom here here
+##' @importFrom lubridate wday ceiling_date
+##' @inheritParams get_hub_config
+##' @return converted date
+##' @author Sebastian Funk
+##' @export
+date_to_week_end <- function(x,
+                             type = c("target", "forecast"),
+                             config_file = here::here("project-config.json")) {
+  type <- match.arg(type)
+  if (type == "target") {
+    config_var <- "week_end_day"
+  } else if (type == "forecast") {
+    config_var <- "forecast_week_day"
+  }
+  week_end_day <- get_hub_config(config_var, config_file = config_file)
+  week_end_wday <- which(
+    levels(lubridate::wday(1, label = TRUE, abbr = FALSE, week_start = 1)) ==
+      week_end_day
+  )
+
+  start_week_day <- (week_end_wday %% 7) + 1L
+
+  week_end_date <- lubridate::ceiling_date(
+    x, unit = "week", week_start = start_week_day
+  ) - 1
+
+  return(week_end_date)
+}
