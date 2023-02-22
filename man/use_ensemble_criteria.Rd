@@ -32,6 +32,8 @@ grid as well as the ensemble forecast (default \code{TRUE})}
 
 \item{rel_wis_cutoff}{numeric: any model with relative WIS greater than this
 value will be excluded}
+
+\item{config_file}{Path to the config file}
 }
 \value{
 \itemize{

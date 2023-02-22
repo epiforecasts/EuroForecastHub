@@ -31,6 +31,7 @@
 #' @importFrom dplyr filter %>% group_by summarise mutate left_join select inner_join
 #' @importFrom tidyr replace_na
 #' @importFrom here here
+#' @inheritParams get_hub_config
 #'
 #' @autoglobal
 #'
