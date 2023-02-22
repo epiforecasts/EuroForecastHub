@@ -4,13 +4,17 @@
 \alias{date_to_week_end}
 \title{Convert a date to the last date of the week it's in}
 \usage{
-date_to_week_end(x, config_file = here::here("project-config.json"))
+date_to_week_end(
+  x,
+  type = c("target", "forecast"),
+  config_file = here::here("project-config.json")
+)
 }
 \arguments{
 \item{x}{date to convert}
 }
 \value{
-converte date
+converted date
 }
 \description{
 The day on which the week ends is given by the config variable

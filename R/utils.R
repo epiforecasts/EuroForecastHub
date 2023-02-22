@@ -32,7 +32,7 @@ weighted_average <- function(..., average = c("mean", "median")) {
 ##'
 ##' @importFrom here here
 ##' @importFrom lubridate wday ceiling_date
-##' @return converte date
+##' @return converted date
 ##' @author Sebastian Funk
 ##' @export
 date_to_week_end <- function(x,
