@@ -10,7 +10,8 @@ use_ensemble_criteria(
   exclude_designated_other = TRUE,
   return_criteria = TRUE,
   eval_dir = here::here("evaluation", "weekly-summary"),
-  rel_wis_cutoff = Inf
+  rel_wis_cutoff = Inf,
+  config_file = here::here("project-config.json")
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ grid as well as the ensemble forecast (default \code{TRUE})}
 
 \item{rel_wis_cutoff}{numeric: any model with relative WIS greater than this
 value will be excluded}
+
+\item{config_file}{Path to the config file}
 }
 \value{
 \itemize{
