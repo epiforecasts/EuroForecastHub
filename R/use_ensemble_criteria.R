@@ -62,8 +62,11 @@ use_ensemble_criteria <- function(forecasts,
     summarise(all_quantiles_all_horizons = all(all_quantiles_present),
               .groups = "drop")
 
-  # 2. Identify models with 4 week forecasts
-  horizons <- get_hub_config("horizon", config_file = config_file)$values
+  # 2. Identify models with all horizons forecasts
+  horizons <- get_hub_config("ensemble_horizon", config_file = config_file)
+  if (is.null(horizons)) {
+    horizons <- get_hub_config("horizon", config_file = config_file)$values
+  }
   all_horizons <- forecasts %>%
     group_by(model, target_variable, location) %>%
     summarise(all_horizons =
