@@ -11,6 +11,7 @@ use_ensemble_criteria(
   return_criteria = TRUE,
   eval_dir = here::here("evaluation", "weekly-summary"),
   rel_wis_cutoff = Inf,
+  horizons = NULL,
   config_file = here::here("project-config.json")
 )
 }
@@ -33,7 +34,13 @@ grid as well as the ensemble forecast (default \code{TRUE})}
 \item{rel_wis_cutoff}{numeric: any model with relative WIS greater than this
 value will be excluded}
 
-\item{config_file}{Path to the config file}
+\item{horizons}{numeric: which horizons to require for inclusion in the
+ensemble; if NULL (default), all horizons specified in the config file
+will be required}
+
+\item{config_file}{character: location of the config file; a URL can be given. By
+default it will be assumed this command is run inside a clone of a forecast
+hub directory with a "project-config.json" file at its root}
 }
 \value{
 \itemize{

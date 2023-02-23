@@ -11,6 +11,12 @@
 #' @param eval_dir character: the path in which to look for evaluation csv files
 #' @param rel_wis_cutoff numeric: any model with relative WIS greater than this
 #' value will be excluded
+#' @param horizons numeric: which horizons to require for inclusion in the
+#' ensemble; if NULL (default), all horizons specified in the config file
+#' will be required
+#' @param config_file character: location of the config file; a URL can be given. By 
+#' default it will be assumed this command is run inside a clone of a forecast
+#' hub directory with a "project-config.json" file at its root
 #'
 #' @return
 #' - if `return_criteria = TRUE`, a list with the following elements
@@ -42,6 +48,7 @@ use_ensemble_criteria <- function(forecasts,
                                   return_criteria = TRUE,
                                   eval_dir = here::here("evaluation", "weekly-summary"),
                                   rel_wis_cutoff = Inf,
+                                  horizons = NULL,
                                   config_file = here::here("project-config.json")) {
 
   # Remove point forecasts
@@ -62,8 +69,10 @@ use_ensemble_criteria <- function(forecasts,
     summarise(all_quantiles_all_horizons = all(all_quantiles_present),
               .groups = "drop")
 
-  # 2. Identify models with 4 week forecasts
-  horizons <- get_hub_config("horizon", config_file = config_file)$values
+  # 2. Identify models with all horizons
+  if (is.null(horizons)) {
+    horizons <- get_hub_config("horizon", config_file = config_file)$values
+  }
   all_horizons <- forecasts %>%
     group_by(model, target_variable, location) %>%
     summarise(all_horizons =
