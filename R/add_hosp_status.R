@@ -9,10 +9,10 @@
 ##' @export
 add_hosp_status <- function(x) {
   hosp_status <- readr::read_csv(here::here(
-    "data-truth", "OWID", "truth_OWID-Weekly Incident Hospitalizations.csv"
+    "data-truth", "OWID", "truth_OWID-Incident Hospitalizations.csv"
   ), show_col_types = FALSE) |>
     dplyr::mutate(target_variable = "inc hosp") |>
-    dplyr::select(target_variable, location, target_end_date, status)
+    dplyr::select(target_variable, location, target_end_date = date, status)
   x <- x |>
     dplyr::left_join(
       hosp_status, by = c("target_variable", "location", "target_end_date")
