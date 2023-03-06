@@ -8,9 +8,7 @@
 ##' @author Sebastian Funk
 ##' @export
 convert_owid_to_weekly <- function(x, ...) {
-  dplyr::bind_rows(x) |>
-    dplyr::filter(date > {{ date }} - lubridate::days(28)) |>
-    dplyr::mutate(snapshot_date = {{ date }}) |>
+  x |>
     dplyr::mutate(sat_date = date_to_week_end(date, ...)) |>
     dplyr::group_by(
       location_name, location, source, sat_date
