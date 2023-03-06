@@ -73,6 +73,8 @@ utils::globalVariables(c(
   "scaled_rel_skill", # <summarise_scores>
   "n_quantiles", # <summarise_scores>
   "wis", # <summarise_scores>
+  "compare_against", # <summarise_scores>
+  "mean_scores_ratio", # <summarise_scores>
   "type", # <use_ensemble_criteria>
   "model", # <use_ensemble_criteria>
   "target_variable", # <use_ensemble_criteria>
