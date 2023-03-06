@@ -24,6 +24,7 @@ convert_owid_to_weekly <- function(x, ...) {
     dplyr::ungroup() |>
     ## if weekly and end date is previous Sunday, make end date the Saturday
     ## instead, i.e. interpret Mon-Sun as Sun-Sat
+    dplyr::filter(n == 7 | frequency == "weekly") |>
     dplyr::mutate(date = dplyr::if_else(
       frequency == "weekly" & date + 6 == sat_date, date + 6, date
     )) |>
