@@ -8,8 +8,11 @@
 ##' @author Sebastian Funk
 ##' @export
 add_hosp_status <- function(x) {
-  hosp_status <- readr::read_csv(here::here(
-    "data-truth", "OWID", "truth_OWID-Incident Hospitalizations.csv"
+  hosp_status <- readr::read_csv(
+    paste0(
+      "https://raw.githubusercontent.com/covid19-forecast-hub-europe/",
+      "covid19-forecast-hub-europe/main/data-truth/OWID/",
+      "truth_OWID-Incident%20Hospitalizations.csv"
   ), show_col_types = FALSE) |>
     dplyr::mutate(target_variable = "inc hosp") |>
     dplyr::select(target_variable, location, target_end_date = date, status)
