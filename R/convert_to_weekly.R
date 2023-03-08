@@ -1,21 +1,21 @@
-##' Convert OWID truth data from daily to weekly
+##' Convert truth data from daily to weekly
 ##'
 ##' @param x data to convert
 ##' @param ... any parameters for [date_to_week_end()]
 ##' @return converted data frame
-##' @importFrom dplyr bind_rows filter mutate group_by ungroup select if_else
+##' @importFrom dplyr bind_rows filter mutate group_by ungroup select if_else across
 ##' @importFrom lubridate days
 ##' @author Sebastian Funk
 ##' @export
-convert_owid_to_weekly <- function(x, ...) {
+convert_to_weekly <- function(x, ...) {
   x |>
     dplyr::mutate(sat_date = date_to_week_end(date, ...)) |>
     dplyr::group_by(
-      location_name, location, source, sat_date
+      dplyr::across(c(-date, -value, -snapshot_date))
     )  |>
     dplyr::mutate(n = dplyr::n())  |> ## count observations per Saturday date
     dplyr::group_by(
-      location_name, location, source,
+      dplyr::across(c(-date, -value, -snapshot_date, -sat_date))
     )  |>
     ## check if data is weekly or daily
     dplyr::mutate(
@@ -29,7 +29,7 @@ convert_owid_to_weekly <- function(x, ...) {
       frequency == "weekly" & date + 6 == sat_date, date + 6, date
     )) |>
     dplyr::group_by(
-      location, location_name, indicator, source, sat_date
+      dplyr::across(c(-date, -value, -snapshot_date))
     ) |>
     dplyr::filter(date == max(date)) |>
     dplyr::ungroup() |>

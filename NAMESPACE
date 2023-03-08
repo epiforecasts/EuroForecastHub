@@ -2,7 +2,7 @@
 
 export(add_hosp_status)
 export(add_point_forecasts)
-export(convert_owid_to_weekly)
+export(convert_to_weekly)
 export(create_ensemble_average)
 export(create_ensemble_relative_skill)
 export(date_to_week_end)
