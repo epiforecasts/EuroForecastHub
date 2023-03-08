@@ -33,7 +33,7 @@ add_status <- function(x) {
     dplyr::mutate(target_variable = "inc death") |>
     dplyr::select(target_variable, location, target_end_date = date, status)
 
-  status <- dplyr::bind_rows(hosp_status, case_stauts, death_status)
+  status <- dplyr::bind_rows(hosp_status, case_status, death_status)
 
   x <- x |>
     dplyr::left_join(
