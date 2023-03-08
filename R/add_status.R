@@ -22,6 +22,7 @@ add_status <- function(x) {
       "covid19-forecast-hub-europe/main/data-truth/ECDC/",
       "truth_ECDC-Incident%20Cases.csv"
   ), show_col_types = FALSE) |>
+    dplyr::mutate(target_variable = "inc case") |>
     dplyr::select(target_variable, location, target_end_date = date, status)
   death_status <- readr::read_csv(
     paste0(
@@ -29,6 +30,7 @@ add_status <- function(x) {
       "covid19-forecast-hub-europe/main/data-truth/ECDC/",
       "truth_ECDC-Incident%20Cases.csv"
   ), show_col_types = FALSE) |>
+    dplyr::mutate(target_variable = "inc death") |>
     dplyr::select(target_variable, location, target_end_date = date, status)
 
   status <- dplyr::bind_rows(hosp_status, case_stauts, death_status)
