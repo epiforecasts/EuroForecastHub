@@ -11,11 +11,11 @@ convert_to_weekly <- function(x, ...) {
   x |>
     dplyr::mutate(sat_date = date_to_week_end(date, ...)) |>
     dplyr::group_by(
-      dplyr::across(c(-date, -value, -snapshot_date))
+      dplyr::across(c(-date, -value, -status, -snapshot_date))
     )  |>
     dplyr::mutate(n = dplyr::n())  |> ## count observations per Saturday date
     dplyr::group_by(
-      dplyr::across(c(-date, -value, -snapshot_date, -sat_date))
+      dplyr::across(c(-date, -value, -status, -snapshot_date, -sat_date, -n))
     )  |>
     ## check if data is weekly or daily
     dplyr::mutate(
@@ -24,12 +24,13 @@ convert_to_weekly <- function(x, ...) {
     dplyr::ungroup() |>
     ## if weekly and end date is previous Sunday, make end date the Saturday
     ## instead, i.e. interpret Mon-Sun as Sun-Sat
-    dplyr::filter(n == 7 | frequency == "weekly") |>
+    dplyr::group_by(location) |>
+    dplyr::filter(n == max(tail(n, 7)) | frequency == "weekly") |>
     dplyr::mutate(date = dplyr::if_else(
       frequency == "weekly" & date + 6 == sat_date, date + 6, date
     )) |>
     dplyr::group_by(
-      dplyr::across(c(-date, -value, -snapshot_date))
+      dplyr::across(c(-date, -value, -status, -snapshot_date))
     ) |>
     dplyr::filter(date == max(date)) |>
     dplyr::ungroup() |>
