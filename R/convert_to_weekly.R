@@ -11,9 +11,9 @@ convert_to_weekly <- function(x, ...) {
   x |>
     dplyr::mutate(sat_date = date_to_week_end(date, ...)) |>
     dplyr::group_by(
-      dplyr::across(c(-date, -value, -status, -snapshot_date))
-    )  |>
-    dplyr::mutate(n = dplyr::n())  |> ## count observations per Saturday date
+      dplyr::across(c(-date, -value, -status, -snapshot_date, -type))
+    ) |>
+    dplyr::mutate(n = dplyr::n()) |> ## count observations per Saturday date
     dplyr::group_by(
       dplyr::across(c(-date, -value, -status, -snapshot_date, -sat_date, -n))
     )  |>
@@ -30,9 +30,12 @@ convert_to_weekly <- function(x, ...) {
       frequency == "weekly" & date + 6 == sat_date, date + 6, date
     )) |>
     dplyr::group_by(
-      dplyr::across(c(-date, -value, -status, -snapshot_date))
+      dplyr::across(c(-date, -value, -status, -snapshot_date, -type))
     ) |>
     dplyr::filter(date == max(date)) |>
     dplyr::ungroup() |>
+    dplyr::mutate(
+      date = lubridate::floor_date(date, unit = "week", week_start = 7) + 6
+    ) |>
     dplyr::select(-sat_date, -n, -frequency)
 }
