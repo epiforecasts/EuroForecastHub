@@ -68,6 +68,16 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
       select(-continuous_weeks)
   }
 
+  if (nrow(score_df) == 0) {
+    return(tibble(
+      model = character(0),
+      target_variable = character(0),
+      horizon = integer(0),
+      location = character(0),
+      location_name = character(0)
+    ))
+  }
+
   ## number of forecasts
   num_fc <- score_df %>%
     count(model, target_variable, horizon, location)
