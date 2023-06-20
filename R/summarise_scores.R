@@ -48,14 +48,17 @@ summarise_scores <- function(scores, report_date, restrict_weeks = 0L) {
 
   ## continuous weeks of submission leading up to the present
   if (restrict_weeks > 0) {
-    cont_weeks <- score_df %>%
-      group_by(forecast_date, model, location, target_variable, horizon) %>%
-      summarise(present = 1, .groups = "drop") %>%
-      complete(model, location, target_variable, horizon, forecast_date) %>%
-      filter(forecast_date <= report_date - weeks(horizon)) %>%
-      group_by(model, location, target_variable, horizon) %>%
-      mutate(continuous_weeks = cumsum(rev(present))) %>%
-      filter(!is.na(continuous_weeks)) %>%
+    cont_weeks <- score_df |>
+      group_by(forecast_date, model, location, target_variable, horizon) |>
+      summarise(present = 1, .groups = "drop") |>
+      complete(model, location, target_variable, horizon, forecast_date) |>
+      group_by(forecast_date, location, target_variable, horizon) |>
+      mutate(all_na = all(is.na(present))) |>
+      ungroup() |>
+      filter(!all_na) |>
+      group_by(model, location, target_variable, horizon) |>
+      mutate(continuous_weeks = cumsum(rev(present))) |>
+      filter(!is.na(continuous_weeks)) |>
       summarise(continuous_weeks = max(continuous_weeks), .groups = "drop")
 
     score_df <- score_df %>%
